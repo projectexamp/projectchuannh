@@ -2,6 +2,7 @@ package com.aht.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,15 +32,19 @@ public class Users {
 	private String password;
 	@Column(name = "STATUS")
 	private int status;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "TBL_ROLE_USER", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-	List<Role> roles;
+	private List<Role> roles;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<RoleUser> roleUser;
 
 	public Users() {
 
 	}
 
-	public Users(int id, String username, String fullName, int gender, String password, int status, List<Role> roles) {
+	public Users(int id, String username, String fullName, int gender, String password, int status, List<Role> roles,
+			List<RoleUser> roleUser) {
+		super();
 		this.id = id;
 		this.username = username;
 		this.fullName = fullName;
@@ -46,6 +52,7 @@ public class Users {
 		this.password = password;
 		this.status = status;
 		this.roles = roles;
+		this.roleUser = roleUser;
 	}
 
 	public int getId() {
@@ -102,6 +109,14 @@ public class Users {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<RoleUser> getRoleUser() {
+		return roleUser;
+	}
+
+	public void setRoleUser(List<RoleUser> roleUser) {
+		this.roleUser = roleUser;
 	}
 
 }

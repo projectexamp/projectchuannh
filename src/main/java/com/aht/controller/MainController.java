@@ -16,17 +16,28 @@ public class MainController {
 
 	@RequestMapping(value = { "/" })
 	public String helloWorld() {
-		return "helloWorld";
+		return "home";
 	}
 
 	@RequestMapping(value = { "/login" })
 	public String loginForm(Model model) {
-		String test = "admin";
-		String hash = BCrypt.hashpw(test, BCrypt.gensalt(12));
-		System.out.println("BCrypt hash: " + hash);
 		return "login";
 	}
 
+	@RequestMapping(value = { "/errorPage" })
+	public String errorPage() {
+		return "403";
+	}
+
+	@RequestMapping(value = { "/logout" })
+	public String logout() {
+		return "redirect:/login";
+	}
+
+	@RequestMapping(value = { "/test" })
+	public String test() {
+		return "test";
+	}
 //	@Autowired
 //	UserRepository ur;
 

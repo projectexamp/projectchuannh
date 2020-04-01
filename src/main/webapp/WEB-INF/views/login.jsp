@@ -23,7 +23,12 @@
 				<tr>
 					<td><button type="submit">Đăng nhập</button></td>
 				</tr>
+					
+				
 			</table>
+			<a href="/user/register">Đăng ký</a> |
+			<a href="/user/register">Lấy lại mật khẩu</a> |
+			<a href="/user/changePw">Đổi mật khẩu</a>	
 		</form>
 	</div>
 </body>
