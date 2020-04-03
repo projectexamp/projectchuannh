@@ -6,42 +6,40 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Thêm chức năng</title>
+<title>Sửa vai trò</title>
 </head>
 <body>
 	<div align="center">
-		<h3>Thêm mới</h3>
-		<form:form action="/function/add" method="POST" modelAttribute="fun">
+		<h3>Sửa</h3>
+		<form:form action="/role/update" method="POST"
+			modelAttribute="oldRole">
 			<table>
+				<form:hidden path="id" />
 				<tr>
-					<td><label>Tên chức năng</label></td>
-					<td><form:input path="functionName" /></td>
-				</tr>
-				<tr>
-					<td><label>Đường dẫn</label></td>
-					<td><form:input path="functionUrl" /></td>
+					<td><label>Tên vai trò</label></td>
+					<td><form:input path="roleName" /></td>
 				</tr>
 				<tr>
 					<td><label>Mô tả</label></td>
 					<td><form:input path="description" /></td>
 				</tr>
 				<tr>
-					<td><label>Mã chức năng</label></td>
-					<td><form:input path="functionCode" /></td>
+					<td><label>Mã vai trò</label></td>
+					<td><form:input path="roleCode" /></td>
 				</tr>
 				<tr>
 					<td><label>Thứ tự sắp xếp</label></td>
-					<td><form:select path="functionOrder">
+					<td><form:select path="roleOrder">
 							<!-- chỉ dùng cho String -->
 							<%-- <form:option value="NONE" label="Select" /> --%>
-							<form:option value="0" label="Thứ 1" />
-							<form:option value="1" label="Thứ 2" />
-							<form:option value="2" label="Thứ 3" />
+							<form:option value="0" label="Thứ 0" />
+							<form:option value="1" label="Thứ 1" />
+							<form:option value="2" label="Thứ 2" />
 							<%-- <form:options items = "${listPosition}" /> --%>
 						</form:select></td>
 				</tr>
 				<tr>
-					<td><form:button>Thêm</form:button></td>
+					<td><form:button>Sửa</form:button></td>
 				</tr>
 			</table>
 

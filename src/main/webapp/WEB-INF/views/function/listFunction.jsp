@@ -32,8 +32,10 @@
 					<td>${lts.functionName }</td>
 					<td>${lts.description }</td>
 					<td>${lts.functionCode }</td>
-					<td><a href="<c:url value='/function/edit'/>">Sửa</a> &nbsp;
-					 <a href="<c:url value='/function/delete/${lts.id }'/>">Xóa</a>
+					<td><a href="<c:url value='/function/update/${lts.id }'/>">Sửa</a>
+						&nbsp; <a href="<c:url value='/function/delete/${lts.id }'/>">Xóa</a>
+						&nbsp; <a href="<c:url value='/function/disable/${lts.id }'/>">Ẩn</a>
+						&nbsp; <a href="<c:url value='/function/active/${lts.id }'/>">Kích hoạt</a>
 					</td>
 				</tr>
 				<c:set var="count" value="${count + 1}"></c:set>

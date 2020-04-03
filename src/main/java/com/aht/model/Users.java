@@ -35,7 +35,7 @@ public class Users {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "TBL_ROLE_USER", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	private List<Role> roles;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
 	private List<RoleUser> roleUser;
 
 	public Users() {

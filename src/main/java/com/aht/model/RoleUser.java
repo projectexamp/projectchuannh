@@ -23,7 +23,7 @@ public class RoleUser {
 	private String useId;
 	@Column(name = "IS_ACTIVE")
 	private int isActive;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id")
 	private Users user;
 

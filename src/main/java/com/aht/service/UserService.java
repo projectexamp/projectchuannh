@@ -1,8 +1,8 @@
 package com.aht.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.aspectj.apache.bcel.classfile.Module.Uses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.aht.model.Function;
 import com.aht.model.Users;
 import com.aht.repository.RoleRepository;
 import com.aht.repository.RoleUserRepository;
@@ -40,7 +41,7 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	public void createUser(Users user) {
+	public void createAccount(Users user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setRoles(roleRepository.findByRolename("USER"));
 //		user.setRoles(new ArrayList<Role>(roleRepository.findAll()));
@@ -48,8 +49,15 @@ public class UserService {
 	}
 
 	public Users getById(int id) {
-		return userRepository.findById(id).get();
+		Optional<Users> user = userRepository.findById(id);
+		if (user.isPresent())
+			return user.get();
+		return null;
 	}
+
+//	public Users getById(int id) {
+//		return userRepository.findById(id).get();
+//	}
 
 	public Users changePassword(Users user) {
 		Users newUser = userRepository.findById(user.getId()).get();
@@ -72,4 +80,44 @@ public class UserService {
 		}
 	}
 
+	public Users createUser(Users user) {
+		Users myUser = new Users();
+		myUser.setStatus(0);
+		myUser.setFullName(user.getFullName());
+		myUser.setUsername(user.getUsername());
+		myUser.setPassword(user.getPassword());
+		myUser.setGender(user.getGender());
+		return userRepository.save(myUser);
+	}
+
+	public Users updateUser(Users oldUser) {
+		Users myUser = userRepository.findById(oldUser.getId()).get();
+		myUser.setFullName(oldUser.getFullName());
+//		myUser.setPassword(oldUser.getPassword());
+		myUser.setGender(oldUser.getGender());
+		return userRepository.save(myUser);
+	}
+
+	public boolean deleteUser(int id) {
+		userRepository.delete(userRepository.findById(id).get());
+		return true;
+	}
+
+	public Users activeUser(int id) {
+		Users myUser = userRepository.findById(id).get();
+		myUser.setStatus(0);
+		return userRepository.save(myUser);
+	}
+
+	public Users disableUser(int id) {
+		Users myUser = userRepository.findById(id).get();
+		myUser.setStatus(1);
+		return userRepository.save(myUser);
+	}
+
+	public Users delUsers2(int id) {
+		Users myUser = userRepository.findById(id).get();
+		myUser.setStatus(2);
+		return userRepository.save(myUser);
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,12 +28,46 @@ public class FunctionController {
 	}
 
 	@GetMapping(value = "/add")
-	public String showAdd() {
+	public String doAdd(Model model) {
+		model.addAttribute("fun", new Function());
 		return "/function/add";
 	}
 
 	@PostMapping(value = "/add")
-	public String showAdd(@ModelAttribute("fun") Function fun, Model model) {
+	public String doAdd(@ModelAttribute("fun") Function fun) {
+		if (fun != null) {
+			fService.createFunction(fun);
+		}
+		return "redirect:/function/list";
+	}
+
+	@GetMapping(value = "/update/{id}")
+	public String doUpdate(@PathVariable("id") int id, Model model) {
+		model.addAttribute("oldFn", fService.getById(id));
+		return "function/update";
+	}
+
+	@PostMapping(value = "/update")
+	public String doUpdate(@ModelAttribute("oldFn") Function fn) {
+		fService.updateFunction(fn);
+		return "redirect:/function/list";
+	}
+
+	@GetMapping(value = "/delete/{id}")
+	public String deleteFunc(@PathVariable("id") int id) {
+		fService.deleteFunction(id);
+		return "redirect:/function/list";
+	}
+
+	@GetMapping(value = "/disable/{id}")
+	public String disableFunc(@PathVariable("id") int id) {
+		fService.disableFunc(id);
+		return "redirect:/function/list";
+	}
+
+	@GetMapping(value = "/active/{id}")
+	public String activeFunc(@PathVariable("id") int id) {
+		fService.activeFunc(id);
 		return "redirect:/function/list";
 	}
 }

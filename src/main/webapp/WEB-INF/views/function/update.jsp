@@ -6,13 +6,15 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Thêm chức năng</title>
+<title>Sửa chức năng</title>
 </head>
 <body>
 	<div align="center">
-		<h3>Thêm mới</h3>
-		<form:form action="/function/add" method="POST" modelAttribute="fun">
+		<h3>Sửa</h3>
+		<form:form action="/function/update" method="POST"
+			modelAttribute="oldFn">
 			<table>
+				<form:hidden path="id" />
 				<tr>
 					<td><label>Tên chức năng</label></td>
 					<td><form:input path="functionName" /></td>
@@ -41,7 +43,7 @@
 						</form:select></td>
 				</tr>
 				<tr>
-					<td><form:button>Thêm</form:button></td>
+					<td><form:button>Sửa</form:button></td>
 				</tr>
 			</table>
 

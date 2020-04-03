@@ -9,8 +9,8 @@
 </head>
 <body>
 	<a href="<c:url value="/function/list"/>">Danh sách chức năng</a> |
-	<a href="<c:url value="/function/list"/>">Danh sách quyền</a> |
-	<a href="<c:url value="/function/list"/>">Danh sách người dùng</a>
+	<a href="<c:url value="/role/list"/>">Danh sách quyền</a> |
+	<a href="<c:url value="/user/list"/>">Danh sách người dùng</a>
 	<br>
 	<a href="<c:url value="/logout"/>">Đăng xuất</a>
 </body>

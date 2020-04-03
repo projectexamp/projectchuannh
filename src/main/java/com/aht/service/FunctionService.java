@@ -20,13 +20,20 @@ public class FunctionService {
 	}
 
 	public Function createFunction(Function fun) {
+		Function myFun = new Function();
+		myFun.setStatus(0);
+		myFun.setFunctionName(fun.getFunctionName());
+		myFun.setFunctionUrl(fun.getFunctionUrl());
+		myFun.setDescription(fun.getDescription());
+		myFun.setFunctionCode(fun.getFunctionCode());
+		myFun.setFunctionOrder(fun.getFunctionOrder());
 
-		return fRepository.save(fun);
+		return fRepository.save(myFun);
 	}
 
 	public Function updateFunction(Function fun) {
 		Function myFun = fRepository.findById(fun.getId()).get();
-		myFun.setStatus(2);
+//		myFun.setStatus(2);
 		myFun.setFunctionOrder(fun.getFunctionOrder());
 		myFun.setFunctionUrl(fun.getFunctionUrl());
 		myFun.setFunctionName(fun.getFunctionName());
@@ -48,9 +55,21 @@ public class FunctionService {
 		return null;
 	}
 
-	public Function disableFunc(Function fun) {
-		Function myFun = fRepository.findById(fun.getId()).get();
+	public Function activeFunc(int id) {
+		Function myFun = fRepository.findById(id).get();
+		myFun.setStatus(0);
+		return fRepository.save(myFun);
+	}
+
+	public Function disableFunc(int id) {
+		Function myFun = fRepository.findById(id).get();
 		myFun.setStatus(1);
+		return fRepository.save(myFun);
+	}
+
+	public Function delFunc(int id) {
+		Function myFun = fRepository.findById(id).get();
+		myFun.setStatus(2);
 		return fRepository.save(myFun);
 	}
 }

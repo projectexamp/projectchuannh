@@ -10,8 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
+
 @Entity
 @Table(name = "TBL_ROLE")
+//@Where(clause = "status in(0,1)")
 public class Role {
 	@Id
 	@Column(name = "ROLE_ID")
@@ -26,21 +29,21 @@ public class Role {
 	@Column(name = "ROLE_CODE")
 	private String roleCode;
 	@Column(name = "ROLE_ORDER")
-	private int roleOrser;
+	private int roleOrder;
 	@ManyToMany(mappedBy = "roles")
 	private List<Users> users;
 
 	public Role() {
 	}
 
-	public Role(int id, int status, String roleName, String description, String roleCode, int roleOrser,
+	public Role(int id, int status, String roleName, String description, String roleCode, int roleOrder,
 			List<Users> users) {
 		this.id = id;
 		this.status = status;
 		this.roleName = roleName;
 		this.description = description;
 		this.roleCode = roleCode;
-		this.roleOrser = roleOrser;
+		this.roleOrder = roleOrder;
 		this.users = users;
 	}
 
@@ -84,12 +87,12 @@ public class Role {
 		this.roleCode = roleCode;
 	}
 
-	public int getRoleOrser() {
-		return roleOrser;
+	public int getRoleOrder() {
+		return roleOrder;
 	}
 
-	public void setRoleOrser(int roleOrser) {
-		this.roleOrser = roleOrser;
+	public void setRoleOrder(int roleOrder) {
+		this.roleOrder = roleOrder;
 	}
 
 	public List<Users> getUsers() {

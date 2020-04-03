@@ -26,13 +26,61 @@ public class UsersController {
 
 	@PostMapping(value = { "/signUp" })
 	public String register(@ModelAttribute("newUser") Users user) {
-		uService.createUser(user);
-		uService.autoLogin(user.getUsername(), user.getPassword());
+		uService.createAccount(user);
+//		uService.autoLogin(user.getUsername(), user.getPassword());
 		return "redirect:/";
 	}
 
 	@RequestMapping(value = { "/changePw" })
 	public String changePw(@ModelAttribute("user") Users user, Model model) {
 		return "user/changePassword";
+	}
+
+	@RequestMapping(value = "/list")
+	public String getAll(Model model) {
+		model.addAttribute("list", uService.getAll());
+		return "user/listUsers";
+	}
+
+	@GetMapping(value = "/add")
+	public String doAdd(Model model) {
+		model.addAttribute("user", new Users());
+		return "user/add";
+	}
+
+	@PostMapping(value = "/add")
+	public String doAdd(@ModelAttribute("user") Users user) {
+		uService.createUser(user);
+		return "redirect:/user/list";
+	}
+
+	@GetMapping(value = "/update/{id}")
+	public String doUpdate(@PathVariable("id") int id, Model model) {
+		model.addAttribute("oldUser", uService.getById(id));
+		return "user/update";
+	}
+
+	@PostMapping(value = "/update")
+	public String doUpdate(@ModelAttribute("oldUser") Users user) {
+		uService.updateUser(user);
+		return "redirect:/user/list";
+	}
+
+	@RequestMapping(value = "/delete/{id}")
+	public String doDelete(@PathVariable("id") int id) {
+		uService.deleteUser(id);
+		return "redirect:/user/list";
+	}
+
+	@GetMapping(value = "/disable/{id}")
+	public String disableUser(@PathVariable("id") int id) {
+		uService.disableUser(id);
+		return "redirect:/user/list";
+	}
+
+	@GetMapping(value = "/active/{id}")
+	public String activeUser(@PathVariable("id") int id) {
+		uService.activeUser(id);
+		return "redirect:/user/list";
 	}
 }
