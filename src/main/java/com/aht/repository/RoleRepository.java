@@ -12,6 +12,6 @@ import com.aht.model.Role;
 @Repository
 @Transactional
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-	@Query("SELECT r FROM Role r WHERE r.roleName = 'ROLE_USER'")
-	public List<Role> findByRolename(String name);
+	@Query("SELECT r FROM Role r WHERE r.roleCode = 'ROLE_USER'")
+	public List<Role> findByRolecode(String name);
 }

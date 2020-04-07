@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Where;
-
 @Entity
 @Table(name = "TBL_FUNCTION")
 //@Where(clause = "status = '0'") them dieu kien cho findAll

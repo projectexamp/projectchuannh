@@ -29,12 +29,23 @@
 					<td>${lts.description }</td>
 					<td>${lts.roleCode }</td>
 					<td>${lts.roleOrder }</td>
-					<td>${lts.status }</td>
+					<td><c:choose>
+							<c:when test="${lts.status=='0' }">
+								Mới
+							</c:when>
+							<c:when test="${lts.status=='1' }">
+								Ẩn
+							</c:when>
+							<c:otherwise>
+								Xóa
+							</c:otherwise>
+						</c:choose></td>
 					<td><a href="<c:url value='/role/update/${lts.id }'/>">Sửa</a>
-						&nbsp; <a href="<c:url value='/role/delete/${lts.id }'/>">Xóa</a>
+						&nbsp; <a onclick="return confirm('Chắc Chắn Muốn Xóa')" href="<c:url value='/role/delete/${lts.id }'/>">Xóa</a>
 						&nbsp; <a href="<c:url value='/role/disable/${lts.id }'/>">Ẩn</a>
-						&nbsp; <a href="<c:url value='/role/active/${lts.id }'/>">Kích
-							hoạt</a></td>
+						&nbsp; <a href="<c:url value='/role/active/${lts.id }'/>">Kích hoạt</a>
+						&nbsp; <a href="<c:url value='/role/assignRole/${lts.id }'/>">Gán chức năng</a>
+						</td>
 				</tr>
 				<c:set var="count" value="${count + 1}"></c:set>
 			</c:forEach>

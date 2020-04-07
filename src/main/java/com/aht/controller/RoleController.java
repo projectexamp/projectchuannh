@@ -1,5 +1,7 @@
 package com.aht.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.aht.model.Function;
 import com.aht.model.Role;
+import com.aht.model.RolesFunctions;
+import com.aht.service.FunctionService;
 import com.aht.service.RoleService;
 
 @Controller
@@ -19,6 +22,8 @@ public class RoleController {
 
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private FunctionService funcService;
 
 	@RequestMapping(value = { "/list" })
 	public String getAll(Model model) {
@@ -69,6 +74,20 @@ public class RoleController {
 	public String activeRole(@PathVariable("id") int id) {
 		roleService.activeRole(id);
 
+		return "redirect:/role/list";
+	}
+
+	@GetMapping(value = "/assignRole/{id}")
+	public String showAssignForm(Model model, @PathVariable("id") int id) {
+		model.addAttribute("rf", new RolesFunctions());
+		model.addAttribute("list", funcService.getAll());
+		model.addAttribute("roleId", id);
+		return "role/assignFunc";
+	}
+
+	@PostMapping(value = "/assignFnToRole")
+	public String assginFnToRole(@ModelAttribute("rf") RolesFunctions rf) {
+		System.out.println("rf: " + rf);
 		return "redirect:/role/list";
 	}
 }

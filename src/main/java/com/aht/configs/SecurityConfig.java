@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.exceptionHandling().accessDeniedPage("/errorPage")
 		.and()
 		.logout()
+		.clearAuthentication(true)
 		.deleteCookies("JSESSIONID")
 		;
 	}

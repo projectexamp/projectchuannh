@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.aht.model.Users;
 import com.aht.service.UserService;
@@ -66,7 +67,7 @@ public class UsersController {
 		return "redirect:/user/list";
 	}
 
-	@RequestMapping(value = "/delete/{id}")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String doDelete(@PathVariable("id") int id) {
 		uService.deleteUser(id);
 		return "redirect:/user/list";

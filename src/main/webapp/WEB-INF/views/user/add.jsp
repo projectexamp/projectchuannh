@@ -19,7 +19,7 @@
 				</tr>
 				<tr>
 					<td><label>Mật khẩu</label></td>
-					<td><form:input path="password" /></td>
+					<td><form:password path="password" /></td>
 				</tr>
 				<tr>
 					<td><label>Tên người dùng</label></td>

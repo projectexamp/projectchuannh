@@ -1,7 +1,6 @@
 package com.aht.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,7 @@ public class MainController {
 	@Autowired
 	private UserService uService;
 
-	@RequestMapping(value = { "/" })
+	@RequestMapping(value = { "/", "/home" })
 	public String helloWorld() {
 		return "home";
 	}

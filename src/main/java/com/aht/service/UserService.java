@@ -11,16 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.aht.model.Function;
 import com.aht.model.Users;
 import com.aht.repository.RoleRepository;
-import com.aht.repository.RoleUserRepository;
 import com.aht.repository.UserRepository;
 
 @Service
 public class UserService {
-	@Autowired
-	private RoleUserRepository ruRepository;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -43,7 +39,7 @@ public class UserService {
 
 	public void createAccount(Users user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRoles(roleRepository.findByRolename("USER"));
+		user.setRoles(roleRepository.findByRolecode("USER"));
 //		user.setRoles(new ArrayList<Role>(roleRepository.findAll()));
 		userRepository.save(user);
 	}

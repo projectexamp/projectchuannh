@@ -23,9 +23,9 @@ public class RoleService {
 	public Role createRole(Role role) {
 		Role myRole = new Role();
 		myRole.setStatus(0);
-		myRole.setRoleName("ROLE_" + role.getRoleName());
+		myRole.setRoleName(role.getRoleName());
 		myRole.setDescription(role.getDescription());
-		myRole.setRoleCode(role.getRoleCode());
+		myRole.setRoleCode("ROLE_" + role.getRoleCode());
 		myRole.setRoleOrder(role.getRoleOrder());
 
 		return roleRepository.save(myRole);

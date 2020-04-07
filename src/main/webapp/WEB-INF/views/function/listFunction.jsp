@@ -14,28 +14,29 @@
 		<table border="1">
 			<tr>
 				<th>STT</th>
+				<th>Tên chức năng</th>
+				<th>Mã chức năng</th>
+				<th>Đường dẫn</th>
 				<th>Trạng thái</th>
 				<th>Thứ tự SX</th>
-				<th>Đường dẫn</th>
-				<th>Tên chức năng</th>
 				<th>Ghi chú</th>
-				<th>Mã chức năng</th>
 				<th>Action</th>
 			</tr>
 			<c:set var="count" value="1" />
 			<c:forEach items="${list }" var="lts">
 				<tr>
 					<td><c:out value="${count }"></c:out></td>
+					<td>${lts.functionName }</td>
+					<td>${lts.functionCode }</td>
+					<td>${lts.functionUrl }</td>
 					<td>${lts.status }</td>
 					<td>${lts.functionOrder }</td>
-					<td>${lts.functionUrl }</td>
-					<td>${lts.functionName }</td>
 					<td>${lts.description }</td>
-					<td>${lts.functionCode }</td>
 					<td><a href="<c:url value='/function/update/${lts.id }'/>">Sửa</a>
-						&nbsp; <a href="<c:url value='/function/delete/${lts.id }'/>">Xóa</a>
+						&nbsp; <a onclick="return confirm('Chắc Chắn Muốn Xóa')" href="<c:url value='/function/delete/${lts.id }'/>">Xóa</a>
 						&nbsp; <a href="<c:url value='/function/disable/${lts.id }'/>">Ẩn</a>
 						&nbsp; <a href="<c:url value='/function/active/${lts.id }'/>">Kích hoạt</a>
+						
 					</td>
 				</tr>
 				<c:set var="count" value="${count + 1}"></c:set>

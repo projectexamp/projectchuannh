@@ -14,8 +14,8 @@
 		<table border="1">
 			<tr>
 				<th>STT</th>
-				<th>Tên người dùng</th>
 				<th>Tên tài khoản</th>
+				<th>Tên người dùng</th>
 				<th>Giới tính</th>
 				<th>Trạng thái</th>
 				<th>Action</th>
@@ -24,12 +24,12 @@
 			<c:forEach items="${list }" var="lts">
 				<tr>
 					<td><c:out value="${count }"></c:out></td>
-					<td>${lts.fullName }</td>
 					<td>${lts.username }</td>
+					<td>${lts.fullName }</td>
 					<td>${lts.gender }</td>
 					<td>${lts.status }</td>
 					<td><a href="<c:url value='/user/update/${lts.id }'/>">Sửa</a>
-						&nbsp; <a href="<c:url value='/user/delete/${lts.id }'/>">Xóa</a>
+						&nbsp; <a onclick="return confirm('Chắc Chắn Muốn Xóa')" href="<c:url value='/user/delete/${lts.id }'/>">Xóa</a>
 						&nbsp; <a href="<c:url value='/user/disable/${lts.id }'/>">Ẩn</a>
 						&nbsp; <a href="<c:url value='/user/active/${lts.id }'/>">Kích
 							hoạt</a></td>
