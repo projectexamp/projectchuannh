@@ -27,12 +27,23 @@
 					<td>${lts.username }</td>
 					<td>${lts.fullName }</td>
 					<td>${lts.gender }</td>
-					<td>${lts.status }</td>
+					<td><c:choose>
+							<c:when test="${lts.status=='0' }">
+								Mới
+							</c:when>
+							<c:when test="${lts.status=='1' }">
+								Ẩn
+							</c:when>
+							<c:otherwise>
+								Xóa
+							</c:otherwise>
+						</c:choose></td>
 					<td><a href="<c:url value='/user/update/${lts.id }'/>">Sửa</a>
 						&nbsp; <a onclick="return confirm('Chắc Chắn Muốn Xóa')" href="<c:url value='/user/delete/${lts.id }'/>">Xóa</a>
 						&nbsp; <a href="<c:url value='/user/disable/${lts.id }'/>">Ẩn</a>
-						&nbsp; <a href="<c:url value='/user/active/${lts.id }'/>">Kích
-							hoạt</a></td>
+						&nbsp; <a href="<c:url value='/user/active/${lts.id }'/>">Kích hoạt</a>
+						&nbsp; <a href="<c:url value='/user/assignRole/${lts.id }'/>">Gán quyền</a> 
+							</td>
 				</tr>
 				<c:set var="count" value="${count + 1}"></c:set>
 			</c:forEach>

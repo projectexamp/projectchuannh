@@ -29,7 +29,17 @@
 					<td>${lts.functionName }</td>
 					<td>${lts.functionCode }</td>
 					<td>${lts.functionUrl }</td>
-					<td>${lts.status }</td>
+					<td><c:choose>
+							<c:when test="${lts.status=='0' }">
+								Mới
+							</c:when>
+							<c:when test="${lts.status=='1' }">
+								Ẩn
+							</c:when>
+							<c:otherwise>
+								Xóa
+							</c:otherwise>
+						</c:choose></td>
 					<td>${lts.functionOrder }</td>
 					<td>${lts.description }</td>
 					<td><a href="<c:url value='/function/update/${lts.id }'/>">Sửa</a>

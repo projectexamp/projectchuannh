@@ -20,6 +20,7 @@ public class MainController {
 
 	@RequestMapping(value = { "/login" })
 	public String loginForm(Model model) {
+		
 		return "login";
 	}
 

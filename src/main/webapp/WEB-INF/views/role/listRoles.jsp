@@ -44,7 +44,7 @@
 						&nbsp; <a onclick="return confirm('Chắc Chắn Muốn Xóa')" href="<c:url value='/role/delete/${lts.id }'/>">Xóa</a>
 						&nbsp; <a href="<c:url value='/role/disable/${lts.id }'/>">Ẩn</a>
 						&nbsp; <a href="<c:url value='/role/active/${lts.id }'/>">Kích hoạt</a>
-						&nbsp; <a href="<c:url value='/role/assignRole/${lts.id }'/>">Gán chức năng</a>
+						&nbsp; <a href="<c:url value='/role/assignFunc/${lts.id }'/>">Gán chức năng</a> 
 						</td>
 				</tr>
 				<c:set var="count" value="${count + 1}"></c:set>

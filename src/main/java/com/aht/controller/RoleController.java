@@ -1,7 +1,5 @@
 package com.aht.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +8,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aht.model.Function;
 import com.aht.model.Role;
 import com.aht.model.RolesFunctions;
 import com.aht.service.FunctionService;
 import com.aht.service.RoleService;
+import com.aht.service.RolesFunctionsService;
 
 @Controller
 @RequestMapping(value = "/role")
@@ -24,6 +25,8 @@ public class RoleController {
 	private RoleService roleService;
 	@Autowired
 	private FunctionService funcService;
+	@Autowired
+	private RolesFunctionsService rfService;
 
 	@RequestMapping(value = { "/list" })
 	public String getAll(Model model) {
@@ -77,17 +80,40 @@ public class RoleController {
 		return "redirect:/role/list";
 	}
 
-	@GetMapping(value = "/assignRole/{id}")
+//	@GetMapping(value = "/assignRole/{id}")
+//	public String showAssignForm(Model model, @PathVariable("id") int id) {
+//		model.addAttribute("rf", new RolesFunctions());
+//		model.addAttribute("list", funcService.getAll());
+//		model.addAttribute("role", roleService.getById(id));
+//		return "role/assignFunc";
+//	}
+//
+//	@PostMapping(value = "/assignFnToRole")
+//	public String assginFnToRole(@ModelAttribute RolesFunctions rf) {
+//		System.out.println("getFunc: " + rf.getFunction());
+//		System.out.println("getRole: " + rf.getRole());
+//		System.out.println("rd: " + rf);
+//		return "redirect:/role/list";
+//	}
+
+	@GetMapping(value = "/assignFunc/{id}")
 	public String showAssignForm(Model model, @PathVariable("id") int id) {
-		model.addAttribute("rf", new RolesFunctions());
+		Role role = roleService.getById(id);
+		RolesFunctions rf = new RolesFunctions();
+		rf.setRole(role);
+		model.addAttribute("rf", rf);
 		model.addAttribute("list", funcService.getAll());
-		model.addAttribute("roleId", id);
 		return "role/assignFunc";
 	}
 
 	@PostMapping(value = "/assignFnToRole")
-	public String assginFnToRole(@ModelAttribute("rf") RolesFunctions rf) {
-		System.out.println("rf: " + rf);
+	public String assginFnToRole(@RequestParam("functionId") Integer[] arrFunctionId,
+			@ModelAttribute("rf") RolesFunctions rf) {
+		for (Integer tmp : arrFunctionId) {
+			Function function = funcService.getById(tmp);
+			rfService.create(new RolesFunctions(true, rf.getRole(), function));
+		}
 		return "redirect:/role/list";
 	}
+
 }

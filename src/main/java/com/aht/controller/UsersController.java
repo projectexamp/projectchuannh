@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aht.model.Role;
+import com.aht.model.RolesUsers;
 import com.aht.model.Users;
+import com.aht.service.RoleService;
+import com.aht.service.RolesUsersService;
 import com.aht.service.UserService;
 
 @Controller
@@ -18,6 +23,10 @@ import com.aht.service.UserService;
 public class UsersController {
 	@Autowired
 	private UserService uService;
+	@Autowired
+	private RoleService rService;
+	@Autowired
+	private RolesUsersService ruSerive;
 
 	@RequestMapping(value = { "/register" })
 	public String showForm(Model model) {
@@ -82,6 +91,25 @@ public class UsersController {
 	@GetMapping(value = "/active/{id}")
 	public String activeUser(@PathVariable("id") int id) {
 		uService.activeUser(id);
+		return "redirect:/user/list";
+	}
+
+	@GetMapping(value = "/assignRole/{id}")
+	public String showAssignForm(Model model, @PathVariable("id") int id) {
+		Users user = uService.getById(id);
+		RolesUsers ru = new RolesUsers();
+		ru.setUser(user);
+		model.addAttribute("ru", ru);
+		model.addAttribute("list", rService.getAll());
+		return "user/assignRole";
+	}
+
+	@PostMapping(value = "/assignRoleToUser")
+	public String assginRoleToUser(@RequestParam("roleId") Integer[] arrRoleId, @ModelAttribute("ru") RolesUsers ru) {
+		for (Integer tmp : arrRoleId) {
+			Role role = rService.getById(tmp);
+			ruSerive.create(new RolesUsers(true, ru.getUser(), role));
+		}
 		return "redirect:/user/list";
 	}
 }

@@ -6,25 +6,25 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Gán chức năng</title>
+<title>Gán quyền</title>
 </head>
 <body>
 	<div align="center">
-		<h3>Gán chức năng</h3>
-		<form:form action="/role/assignFnToRole" method="POST"
-			modelAttribute="rf">
+		<h3>Gán quyền</h3>
+		<form:form action="/user/assignRoleToUser" method="POST"
+			modelAttribute="ru">
 			<table>
 				<%-- <tr>
 					<td><form:checkboxes items="${list }" path="function"
 							itemLabel="functionName" element="li" /></td>
 				</tr> --%>
 				<tr>
-					<td><form:hidden path="role" /></td>
+					<td><form:hidden path="user" /></td>
 				</tr>
 				<tr>
 					<td><c:forEach items="${list}" var="item">
-							<input type="checkbox" name="functionId" value="${item.id }">
-							<label>${item.functionName}</label>
+							<input type="checkbox" name="roleId" value="${item.id }">
+							<label>${item.roleName}</label>
 						</c:forEach></td>
 				</tr>
 				<tr>
