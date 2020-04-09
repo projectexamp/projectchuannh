@@ -116,4 +116,9 @@ public class UserService {
 		myUser.setStatus(2);
 		return userRepository.save(myUser);
 	}
+
+	public List<Users> searchUser(String userName) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserName(userName);
+	}
 }

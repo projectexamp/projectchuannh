@@ -72,4 +72,8 @@ public class FunctionService {
 		myFun.setStatus(2);
 		return fRepository.save(myFun);
 	}
+
+	public List<Function> searchFunction(String fnName) {
+		return fRepository.findByFunctionName(fnName);
+	}
 }

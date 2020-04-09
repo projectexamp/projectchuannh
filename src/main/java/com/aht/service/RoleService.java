@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aht.model.Function;
 import com.aht.model.Role;
 import com.aht.repository.RoleRepository;
 
@@ -69,5 +70,10 @@ public class RoleService {
 		Role myRole = roleRepository.findById(id).get();
 		myRole.setStatus(2);
 		return roleRepository.save(myRole);
+	}
+
+	public List<Role> searchRole(String roleName) {
+
+		return roleRepository.findByRoleName(roleName);
 	}
 }

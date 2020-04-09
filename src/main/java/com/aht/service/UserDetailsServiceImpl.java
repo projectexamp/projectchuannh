@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("Khong tim thay tai khoan " + username);
 		List<GrantedAuthority> grentedAuthority = new ArrayList<>();
 		for (Role role : user.getRoles()) {
-			grentedAuthority.add(new SimpleGrantedAuthority(role.getRoleName()));
+			grentedAuthority.add(new SimpleGrantedAuthority(role.getRoleCode()));
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				grentedAuthority);

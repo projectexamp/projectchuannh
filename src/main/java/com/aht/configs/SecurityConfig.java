@@ -34,7 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		http
 		.csrf().disable()
-		.authorizeRequests().antMatchers("/user/**").permitAll()
+		.authorizeRequests()
+		.antMatchers("/user/list", "/", "/home").authenticated()
+		.antMatchers("/user/**", "/role/**", "/function/**").hasAnyRole("ADMIN", "MANAGER")
+		.antMatchers("/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -43,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.exceptionHandling().accessDeniedPage("/errorPage")
 		.and()
 		.logout()
+		.logoutUrl("/logout")
+		.logoutSuccessUrl("/login")
 		.clearAuthentication(true)
 		.deleteCookies("JSESSIONID")
 		;

@@ -112,4 +112,14 @@ public class UsersController {
 		}
 		return "redirect:/user/list";
 	}
+
+	@PostMapping(value = "/search")
+	public String searchUser(@RequestParam("searchTxt") String userName, Model model) {
+		if (userName == null || ("").equals(userName)) {
+			model.addAttribute("list", uService.getAll());
+		} else {
+			model.addAttribute("list", uService.searchUser(userName));
+		}
+		return "/user/listUsers";
+	}
 }

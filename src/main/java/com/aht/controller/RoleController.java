@@ -116,4 +116,13 @@ public class RoleController {
 		return "redirect:/role/list";
 	}
 
+	@PostMapping(value = "/search")
+	public String searchRole(@RequestParam("searchTxt") String roleName, Model model) {
+		if (roleName == null || ("").equals(roleName)) {
+			model.addAttribute("list", roleService.getAll());
+		} else {
+			model.addAttribute("list", roleService.searchRole(roleName));
+		}
+		return "/role/listRoles";
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aht.model.Function;
 import com.aht.service.FunctionService;
@@ -69,5 +70,15 @@ public class FunctionController {
 	public String activeFunc(@PathVariable("id") int id) {
 		fService.activeFunc(id);
 		return "redirect:/function/list";
+	}
+
+	@PostMapping(value = "/search")
+	public String searchFn(@RequestParam("searchTxt") String fnName, Model model) {
+		if (fnName == null || ("").equals(fnName)) {
+			model.addAttribute("list", fService.getAll());
+		} else {
+			model.addAttribute("list", fService.searchFunction(fnName));
+		}
+		return "/function/listFunction";
 	}
 }
