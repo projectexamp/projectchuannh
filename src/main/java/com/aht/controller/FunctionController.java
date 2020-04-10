@@ -2,6 +2,8 @@ package com.aht.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +24,11 @@ public class FunctionController {
 	private FunctionService fService;
 
 	@RequestMapping(value = "/list")
-	public String getAll(Model model) {
+	public String getAll(Model model, HttpServletRequest request) {
 		List<Function> page = fService.getAll();
 		model.addAttribute("list", page);
+		System.out.println("URL: " + request.getRequestURL());
+		System.out.println("URI: " + request.getRequestURI());
 		return "/function/listFunction";
 	}
 

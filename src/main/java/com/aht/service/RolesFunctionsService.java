@@ -1,5 +1,7 @@
 package com.aht.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,10 @@ public class RolesFunctionsService {
 		myRF.setFunction(rf.getFunction());
 		myRF.setRole(rf.getRole());
 		return rfReposiotry.save(myRF);
+	}
+
+	public List<RolesFunctions> getListByRoleId(int roleId) {
+
+		return rfReposiotry.getListByRoleId(roleId);
 	}
 }

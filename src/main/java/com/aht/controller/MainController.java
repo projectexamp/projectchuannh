@@ -1,15 +1,19 @@
 package com.aht.controller;
 
-import java.util.Collection;
+import java.security.Principal;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.aht.model.RolesFunctions;
+import com.aht.model.RolesUsers;
+import com.aht.service.RolesFunctionsService;
+import com.aht.service.RolesUsersService;
 import com.aht.service.UserService;
 
 @Controller
@@ -17,19 +21,31 @@ public class MainController {
 
 	@Autowired
 	private UserService uService;
+	@Autowired
+	private RolesUsersService ruService;
+	@Autowired
+	private RolesFunctionsService rfService;
 
 	@RequestMapping(value = { "/", "/home" })
-	public String helloWorld() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		Collection<? extends GrantedAuthority> role = auth.getAuthorities();
-		System.out.println(name + "," + role);
+	public String home(HttpServletRequest request, Principal principal) {
+		System.out.println(principal);
+//		User loginUser = (User) ((Authentication)principal).getPrincipal();
+		int userId = (uService.findByUserName(principal.getName())).getId();
+		String url = request.getRequestURL().toString();
+		String uri = request.getRequestURI().toString();
+		List<RolesUsers> listRUs = ruService.getListByUserId(userId);
+		for (RolesUsers ru : listRUs) {
+			List<RolesFunctions> RFs = rfService.getListByRoleId(ru.getRole().getId());
+			for (RolesFunctions rf : RFs) {
+				System.out.println("rf: " + rf.getFunction().getFunctionUrl());
+			}
+		}
 		return "home";
 	}
 
 	@RequestMapping(value = { "/login" })
 	public String loginForm(Model model) {
-		
+
 		return "login";
 	}
 

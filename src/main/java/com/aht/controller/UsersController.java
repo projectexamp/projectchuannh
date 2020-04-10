@@ -40,7 +40,12 @@ public class UsersController {
 //		uService.autoLogin(user.getUsername(), user.getPassword());
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping(value = { "/forgotPass" })
+	public String forgotPass(@ModelAttribute("user") Users user, Model model) {
+		return "user/forgotPassword";
+	}
+	
 	@RequestMapping(value = { "/changePw" })
 	public String changePw(@ModelAttribute("user") Users user, Model model) {
 		return "user/changePassword";

@@ -1,5 +1,7 @@
 package com.aht.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,10 @@ public class RolesUsersService {
 		myRu.setRole(rf.getRole());
 		myRu.setUser(rf.getUser());
 		return ruRepository.save(myRu);
+	}
+
+	public List<RolesUsers> getListByUserId(int userId) {
+
+		return ruRepository.findByUserId(userId);
 	}
 }
